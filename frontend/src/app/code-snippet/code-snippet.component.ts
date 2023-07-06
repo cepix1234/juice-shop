@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -11,7 +11,9 @@ import { VulnLinesService, result } from '../Services/vuln-lines.service'
 import { Component, Inject, OnInit } from '@angular/core'
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { FormControl } from '@angular/forms'
+import { UntypedFormControl } from '@angular/forms'
+import { ConfigurationService } from '../Services/configuration.service'
+import { ThemePalette } from '@angular/material/core'
 
 enum ResultState {
   Undecided,
@@ -28,20 +30,27 @@ interface Solved {
   selector: 'app-user-details',
   templateUrl: './code-snippet.component.html',
   styleUrls: ['./code-snippet.component.scss']
-})
+  })
 export class CodeSnippetComponent implements OnInit {
   public snippet: CodeSnippet = null
   public fixes: Fixes = null
   public selectedLines: number[]
   public selectedFix: number
-  public tab: FormControl = new FormControl(0)
+  public tab: UntypedFormControl = new UntypedFormControl(0)
   public lock: ResultState = ResultState.Undecided
   public result: ResultState = ResultState.Undecided
+  public hint: string = null
+  public explanation: string = null
   public solved: Solved = { findIt: false, fixIt: false }
+  public showFeedbackButtons: boolean = true
 
-  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly codeSnippetService: CodeSnippetService, private readonly vulnLinesService: VulnLinesService, private readonly codeFixesService: CodeFixesService, private readonly challengeService: ChallengeService, private readonly cookieService: CookieService) { }
+  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly configurationService: ConfigurationService, private readonly codeSnippetService: CodeSnippetService, private readonly vulnLinesService: VulnLinesService, private readonly codeFixesService: CodeFixesService, private readonly challengeService: ChallengeService, private readonly cookieService: CookieService) { }
 
   ngOnInit () {
+    this.configurationService.getApplicationConfiguration().subscribe((config) => {
+      this.showFeedbackButtons = config.challenges.showFeedbackButtons
+    }, (err) => console.log(err))
+
     this.codeSnippetService.get(this.dialogData.key).subscribe((snippet) => {
       this.snippet = snippet
       this.solved.findIt = false
@@ -51,14 +60,11 @@ export class CodeSnippetComponent implements OnInit {
         this.solved.findIt = true
       }
     }, (err) => {
-      this.snippet = { snippet: JSON.stringify(err.error?.error) }
+      this.snippet = { snippet: err.error }
     })
     this.codeFixesService.get(this.dialogData.key).subscribe((fixes) => {
       this.fixes = fixes.fixes
-      this.solved.fixIt = false
-      if (this.dialogData.codingChallengeStatus >= 2) {
-        this.solved.fixIt = true
-      }
+      this.solved.fixIt = this.dialogData.codingChallengeStatus >= 2
     }, () => {
       this.fixes = null
     })
@@ -70,6 +76,7 @@ export class CodeSnippetComponent implements OnInit {
 
   setFix = (fix: number) => {
     this.selectedFix = fix
+    this.explanation = null
   }
 
   toggleTab = (event: number) => {
@@ -86,12 +93,14 @@ export class CodeSnippetComponent implements OnInit {
   checkFix = () => {
     this.codeFixesService.check(this.dialogData.key, this.selectedFix).subscribe((verdict) => {
       this.setVerdict(verdict.verdict)
+      this.explanation = verdict.explanation
     })
   }
 
   checkLines = () => {
     this.vulnLinesService.check(this.dialogData.key, this.selectedLines).subscribe((verdict: result) => {
       this.setVerdict(verdict.verdict)
+      this.hint = verdict.hint
     })
   }
 
@@ -109,7 +118,7 @@ export class CodeSnippetComponent implements OnInit {
     }
   }
 
-  lockColor (): string {
+  lockColor (): ThemePalette {
     switch (this.lockIcon()) {
       case 'lock_open':
         return 'accent'
@@ -125,22 +134,20 @@ export class CodeSnippetComponent implements OnInit {
         this.solved.findIt = true
         this.challengeService.continueCodeFindIt().subscribe((continueCode) => {
           if (!continueCode) {
-            throw (new Error('Received invalid continue code from the sever!'))
+            throw (new Error('Received invalid continue code from the server!'))
           }
           const expires = new Date()
           expires.setFullYear(expires.getFullYear() + 1)
-          console.log(continueCode)
           this.cookieService.put('continueCodeFindIt', continueCode, { expires })
         }, (err) => console.log(err))
       } else {
         this.solved.fixIt = true
         this.challengeService.continueCodeFixIt().subscribe((continueCode) => {
           if (!continueCode) {
-            throw (new Error('Received invalid continue code from the sever!'))
+            throw (new Error('Received invalid continue code from the server!'))
           }
           const expires = new Date()
           expires.setFullYear(expires.getFullYear() + 1)
-          console.log(continueCode)
           this.cookieService.put('continueCodeFixIt', continueCode, { expires })
         }, (err) => console.log(err))
       }
@@ -168,7 +175,7 @@ export class CodeSnippetComponent implements OnInit {
     }
   }
 
-  resultColor (): string {
+  resultColor (): ThemePalette {
     switch (this.resultIcon()) {
       case 'check':
         return 'accent'

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie'
 import { WindowRefService } from '../Services/window-ref.service'
 import { Router } from '@angular/router'
 import { Component, NgZone, OnInit } from '@angular/core'
-import { FormControl, Validators } from '@angular/forms'
+import { UntypedFormControl, Validators } from '@angular/forms'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { UserService } from '../Services/user.service'
 import { faEye, faEyeSlash, faKey } from '@fortawesome/free-solid-svg-icons'
@@ -26,12 +26,15 @@ const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent implements OnInit {
-  public emailControl = new FormControl('', [Validators.required])
-  public passwordControl = new FormControl('', [Validators.required])
+  public emailControl = new UntypedFormControl('', [Validators.required])
+
+  public passwordControl = new UntypedFormControl('', [Validators.required, Validators.minLength(1)])
+
   public hide = true
   public user: any
-  public rememberMe: FormControl = new FormControl(false)
+  public rememberMe: UntypedFormControl = new UntypedFormControl(false)
   public error: any
   public clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
   public oauthUnavailable: boolean = true
@@ -99,10 +102,6 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('email', this.user.email)
     } else {
       localStorage.removeItem('email')
-    }
-
-    if (this.error && this.user.email && this.user.email.match(/support@.*/)) {
-      console.log('@echipa de suport: Secretul nostru comun este încă Caoimhe cu parola de master gol!')
     }
   }
 

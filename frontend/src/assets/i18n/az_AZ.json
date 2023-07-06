@@ -315,7 +315,7 @@
   "IMAGE_UPLOAD_SUCCESS": "Təsviriniz uğurla yüklənildi.",
   "EMPTY_MEMORY_LIST": "Hələ ki, heç bir xatirə paylaşılmayıb.",
   "LABEL_DELUXE_MEMBERSHIP": "Delüks Üzvlük",
-  "DESCRIPTION_DELUXE_MEMBERSHIP": "{{appname}} tətbiqinin delüks müştərisi kimi möhtəşəm üstünlüklərdən faydalanın. Üzvlüyünüzə nələrin daxil olduğuna nəzər yetirin.",
+  "DESCRIPTION_DELUXE_MEMBERSHIP": "Enjoy amazing benefits as a deluxe customer of {{appname}}. Check out what is included with your membership.",
   "LABEL_BECOME_MEMBER": "Üzv olun",
   "LABEL_DEALS_OFFERS": "Fürsət və təkliflər",
   "DESCRIPTION_DEALS_OFFERS": "Delüks üzv kimi, eksklüziv fürsətlərə və rədd edilə bilməyən təkliflərə müraciət əldə edəcəksiniz.",
@@ -356,13 +356,13 @@
   "SAVE_BACKUP_TOOLTIP": "Çağırış irəliləyişini və tətbiq tənzimləmələrini faylda saxlayın.",
   "RESTORE_BACKUP_TOOLTIP": "Çağırış irəliləyişini və tətbiq tənzimləmələrini fayldan bərpa edin.",
   "TAG_DANGER_ZONE": "Təhlükəli zona",
-  "TAG_DANGER_ZONE_DESCRIPTION": "RCE və ya digər risklərə görə Docker/Heroku-da ilkin olaraq sıradan çıxarılmış mümkün təhlükəli çağırışları işarələyir.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Marks potentially dangerous challenges which are disabled on Docker/Heroku/Gitpod by default due to RCE or other risks.",
   "TAG_GOOD_FOR_DEMOS": "Demolar üçün yaxşıdır",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Canlı demolar və ya həssas məşqlər üçün uyğun olan çağırışları vurğulayır.",
   "TAG_PREREQUISITE": "Ön şərt",
   "TAG_PREREQUISITE_DESCRIPTION": "Bir və ya daha çox çağırış (realistik olaraq) həll edilməzdən əvvəl həll edilməli çağırışları işarələyir.",
   "TAG_OSINT": "OSINT",
-  "TAG_OSINT_DESCRIPTION": "Tətbiqetmə xaricində bəzi internet araşdırmalarını və ya \"sosial stalking\" fəaliyyəti tələb edən çağırışları işarələyir.",
+  "TAG_OSINT_DESCRIPTION": "Marks challenges which require some Internet research or \"social stalking\" activity outside the application.",
   "TAG_CONTRAPTION": "Mexanizm",
   "TAG_CONTRAPTION_DESCRIPTION": "Bir çağırışın tam olaraq realistik bir ssenarinin bir hissəsi olmadığını, ancaq bir az çətin və hazır olduğunu göstərir.",
   "TAG_SHENANIGANS": "Hiyləgərlik",
@@ -412,5 +412,7 @@
   "LABEL_CORRECT_FIX": "Correct Fix",
   "TITLE_CODING_CHALLENGE": "Coding Challenge",
   "TAB_FIND_IT": "Find It",
-  "TAB_FIX_IT": "Fix It"
+  "TAB_FIX_IT": "Fix It",
+  "TITLE_CODING_SCORE": "Coding Score",
+  "LABEL_FEEDBACK": "Feedback"
 }

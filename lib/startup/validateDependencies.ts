@@ -1,25 +1,27 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import colors = require('colors/safe')
+import colors from 'colors/safe'
+import utils = require('../utils')
+import logger from '../logger'
+
 try {
   require('check-dependencies')
 } catch (err) {
   console.error('Please run "npm install" before starting the application!')
   process.exit(1)
 }
-const logger = require('../logger')
 const dependencyChecker = require('check-dependencies')
 
 const validateDependencies = async ({ packageDir = '.', exitOnFailure = true } = {}) => {
   let success = true
-  let dependencies = {}
+  let dependencies: any = {}
   try {
     dependencies = await dependencyChecker({ packageDir, scopeList: ['dependencies'] })
   } catch (err) {
-    logger.warn(`Dependencies in ${colors.bold(packageDir + '/package.json')} could not be checked due to "${err.message}" error (${colors.red('NOT OK')})`)
+    logger.warn(`Dependencies in ${colors.bold(packageDir + '/package.json')} could not be checked due to "${utils.getErrorMessage(err)}" error (${colors.red('NOT OK')})`)
   }
 
   if (dependencies.depsWereOk === true) {

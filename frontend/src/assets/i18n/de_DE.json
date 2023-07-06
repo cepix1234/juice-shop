@@ -356,7 +356,7 @@
   "SAVE_BACKUP_TOOLTIP": "Fortschritt bei Herausforderungen und Anwendungseinstellungen in Datei speichern.",
   "RESTORE_BACKUP_TOOLTIP": "Fortschritt bei Herausforderungen und Anwendungseinstellungen aus Datei wiederherstellen.",
   "TAG_DANGER_ZONE": "Gefahrenzone",
-  "TAG_DANGER_ZONE_DESCRIPTION": "Markiert potenziell gefährliche Herausforderungen, die bei Docker/Heroku standardmäßig aufgrund von RCE oder anderen Risiken deaktiviert werden.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Markiert potenziell gefährliche Herausforderungen, die bei Docker/Heroku/Gitpod standardmäßig aufgrund von RCE oder anderen Risiken deaktiviert werden.",
   "TAG_GOOD_FOR_DEMOS": "Gut für Demos",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Hebt Herausforderungen hervor, die sich für Live-Demos oder Sensibilisierungsschulungen eignen.",
   "TAG_PREREQUISITE": "Voraussetzung",
@@ -412,5 +412,7 @@
   "LABEL_CORRECT_FIX": "Korrekter Fix",
   "TITLE_CODING_CHALLENGE": "Progammierherausforderung",
   "TAB_FIND_IT": "Finde es",
-  "TAB_FIX_IT": "Fixe es"
+  "TAB_FIX_IT": "Fixe es",
+  "TITLE_CODING_SCORE": "Programmier-Punkte",
+  "LABEL_FEEDBACK": "Feedback"
 }

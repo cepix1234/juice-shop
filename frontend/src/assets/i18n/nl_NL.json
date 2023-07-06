@@ -315,7 +315,7 @@
   "IMAGE_UPLOAD_SUCCESS": "De foto is succesvol ge-upload!",
   "EMPTY_MEMORY_LIST": "Er zijn nog geen ervaringen gedeeld.",
   "LABEL_DELUXE_MEMBERSHIP": "Luxe lidmaatschap",
-  "DESCRIPTION_DELUXE_MEMBERSHIP": "Geniet van geweldige voordelen als een luxe klant van {{appname}}. Bekijk wat er is inbegrepen in uw lidmaatschap.",
+  "DESCRIPTION_DELUXE_MEMBERSHIP": "Enjoy amazing benefits as a deluxe customer of {{appname}}. Check out what is included with your membership.",
   "LABEL_BECOME_MEMBER": "Word lid",
   "LABEL_DEALS_OFFERS": "Aanbiedingen",
   "DESCRIPTION_DEALS_OFFERS": "Als luxe lid krijg je toegang tot exclusieve en onweerstaanbare aanbiedingen.",
@@ -356,13 +356,13 @@
   "SAVE_BACKUP_TOOLTIP": "Bewaar challenge vooruitgang en toepassing instellingen in een bestand.",
   "RESTORE_BACKUP_TOOLTIP": "Herstel voortgang van uitdaging en applicatie-instellingen uit een bestand.",
   "TAG_DANGER_ZONE": "Gevaren zone",
-  "TAG_DANGER_ZONE_DESCRIPTION": "Markeert potentieel gevaarlijke uitdagingen die standaard zijn uitgeschakeld op Docker/Heroku vanwege RCE of andere risico's.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Marks potentially dangerous challenges which are disabled on Docker/Heroku/Gitpod by default due to RCE or other risks.",
   "TAG_GOOD_FOR_DEMOS": "Goed voor demo's",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Markeert uitdagingen die geschikt zijn voor live demos of bewustmakingsopleidingen.",
   "TAG_PREREQUISITE": "Randvoorwaarden",
   "TAG_PREREQUISITE_DESCRIPTION": "Markeert problemen die moeten worden opgelost voordat een of meer andere uitdagingen (realistisch) kunnen worden opgelost.",
   "TAG_OSINT": "OSINT",
-  "TAG_OSINT_DESCRIPTION": "Markeert uitdagingen waarvoor enig internetonderzoek of \"social stalking\" buiten de toepassing vereist is.",
+  "TAG_OSINT_DESCRIPTION": "Marks challenges which require some Internet research or \"social stalking\" activity outside the application.",
   "TAG_CONTRAPTION": "Contraption",
   "TAG_CONTRAPTION_DESCRIPTION": "Geeft aan dat een uitdaging niet precies deel uitmaakt van een realistisch scenario maar misschien een beetje gedwongen of vervaardigd is.",
   "TAG_SHENANIGANS": "Shenanigans",
@@ -412,5 +412,7 @@
   "LABEL_CORRECT_FIX": "Correct Fix",
   "TITLE_CODING_CHALLENGE": "Coding Challenge",
   "TAB_FIND_IT": "Find It",
-  "TAB_FIX_IT": "Fix It"
+  "TAB_FIX_IT": "Fix It",
+  "TITLE_CODING_SCORE": "Coding Score",
+  "LABEL_FEEDBACK": "Feedback"
 }

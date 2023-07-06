@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { Component, NgZone } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { CookieService } from 'ngx-cookie'
 import { UserService } from '../Services/user.service'
@@ -23,10 +23,10 @@ interface TokenEnterFormFields {
   selector: 'app-two-factor-auth-enter',
   templateUrl: './two-factor-auth-enter.component.html',
   styleUrls: ['./two-factor-auth-enter.component.scss']
-})
+  })
 export class TwoFactorAuthEnterComponent {
-  public twoFactorForm: FormGroup = new FormGroup({
-    token: new FormControl('', [Validators.minLength(6), Validators.maxLength(6), Validators.required, Validators.pattern('^[\\d]{6}$')])
+  public twoFactorForm: UntypedFormGroup = new UntypedFormGroup({
+    token: new UntypedFormControl('', [Validators.minLength(6), Validators.maxLength(6), Validators.required, Validators.pattern('^[\\d]{6}$')])
   })
 
   public errored: Boolean = false

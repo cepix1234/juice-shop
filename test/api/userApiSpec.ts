@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -70,6 +70,60 @@ describe('/api/Users', () => {
       })
       .expect('json', 'data', {
         role: 'admin'
+      })
+  })
+
+  it('POST new blank user', () => {
+    return frisby.post(`${API_URL}/Users`, {
+      headers: jsonHeader,
+      body: {
+        email: ' ',
+        password: ' '
+      }
+    })
+      .expect('status', 201)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data', {
+        id: Joi.number(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string(),
+        password: Joi.any().forbidden()
+      })
+  })
+
+  it('POST same blank user in database', () => {
+    return frisby.post(`${API_URL}/Users`, {
+      headers: jsonHeader,
+      body: {
+        email: ' ',
+        password: ' '
+      }
+    }).post(`${API_URL}/Users`, {
+      headers: jsonHeader,
+      body: {
+        email: ' ',
+        password: ' '
+      }
+    })
+      .expect('status', 400)
+      .expect('header', 'content-type', /application\/json/)
+  })
+
+  it('POST whitespaces user', () => {
+    return frisby.post(`${API_URL}/Users`, {
+      headers: jsonHeader,
+      body: {
+        email: ' test@gmail.com',
+        password: ' test'
+      }
+    })
+      .expect('status', 201)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data', {
+        id: Joi.number(),
+        created: Joi.string(),
+        updatedAt: Joi.string(),
+        password: Joi.any().forbidden()
       })
   })
 

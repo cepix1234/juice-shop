@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,9 +7,10 @@ import { MatTableDataSource } from '@angular/material/table'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { Component, NgZone, OnInit } from '@angular/core'
+import { AfterViewInit, Component, NgZone, OnInit } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { NgxSpinnerService } from 'ngx-spinner'
+import { ActivatedRoute } from '@angular/router'
 
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faStar, faTrophy, faPollH } from '@fortawesome/free-solid-svg-icons'
@@ -30,7 +31,7 @@ dom.watch()
   templateUrl: './score-board.component.html',
   styleUrls: ['./score-board.component.scss']
 })
-export class ScoreBoardComponent implements OnInit {
+export class ScoreBoardComponent implements OnInit, AfterViewInit {
   public availableDifficulties: number[] = [1, 2, 3, 4, 5, 6]
   public displayedDifficulties: number[] = [1]
   public availableChallengeCategories: string[] = []
@@ -51,18 +52,44 @@ export class ScoreBoardComponent implements OnInit {
   public allowRepeatNotifications: boolean = false
   public showChallengeHints: boolean = true
   public showVulnerabilityMitigations: boolean = true
-  public showCodeSnippets: string = 'solved'
+  public codingChallengesEnabled: string = 'solved'
   public showHackingInstructor: boolean = true
   public challenges: Challenge[] = []
   public percentChallengesSolved: string = '0'
+  public percentCodingChallengesSolved: string = '0'
   public solvedChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public totalChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public showContributionInfoBox: boolean = true
   public questionnaireUrl: string = 'https://forms.gle/2Tr5m1pqnnesApxN8'
   public appName: string = 'OWASP Juice Shop'
   public localBackupEnabled: boolean = true
+  public showFeedbackButtons: boolean = true
 
-  constructor (private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly codeSnippetService: CodeSnippetService, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly spinner: NgxSpinnerService, private readonly translate: TranslateService, private readonly localBackupService: LocalBackupService, private readonly dialog: MatDialog) {
+  constructor (private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly codeSnippetService: CodeSnippetService, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly spinner: NgxSpinnerService, private readonly translate: TranslateService, private readonly localBackupService: LocalBackupService, private readonly dialog: MatDialog, private readonly route: ActivatedRoute) {
+  }
+
+  public ngAfterViewInit () {
+    const challenge: string = this.route.snapshot.queryParams.challenge
+
+    if (challenge) {
+      const target = document.getElementById(challenge)
+      if (target) {
+        this.scrollToChallenge(challenge)
+      } else {
+        const observer = new MutationObserver(mutationList => {
+          for (const mutation of mutationList) {
+            if (mutation.type === 'childList') {
+              const target = document.getElementById(challenge)
+              if (target) {
+                this.scrollToChallenge(challenge)
+                observer.disconnect()
+              }
+            }
+          }
+        })
+        observer.observe(document.body, { childList: true, subtree: true })
+      }
+    }
   }
 
   ngOnInit () {
@@ -76,9 +103,13 @@ export class ScoreBoardComponent implements OnInit {
       this.allowRepeatNotifications = config.challenges.showSolvedNotifications && config.ctf?.showFlagsInNotifications
       this.showChallengeHints = config.challenges.showHints
       this.showVulnerabilityMitigations = config.challenges.showMitigations
-      this.showCodeSnippets = config.challenges.showCodeSnippets
+      this.codingChallengesEnabled = config.challenges.codingChallengesEnabled
       this.showHackingInstructor = config.hackingInstructor?.isEnabled
       this.showContributionInfoBox = config.application.showGitHubLinks
+      this.showFeedbackButtons = config.challenges.showFeedbackButtons
+      if (this.showFeedbackButtons) {
+        this.displayedColumns.push('feedback')
+      }
       this.questionnaireUrl = config.application.social?.questionnaireUrl
       this.appName = config.application.name
       this.restrictToTutorialsFirst = config.challenges.restrictToTutorialsFirst
@@ -106,6 +137,7 @@ export class ScoreBoardComponent implements OnInit {
           this.availableChallengeCategories.sort((a, b) => a.localeCompare(b))
           this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(String(localStorage.getItem('displayedChallengeCategories'))) : this.availableChallengeCategories
           this.calculateProgressPercentage()
+          this.calculateCodingProgressPercentage()
           this.populateFilteredChallengeLists()
           this.calculateGradientOffsets(challenges)
           this.calculateTutorialTier(challenges)
@@ -120,7 +152,7 @@ export class ScoreBoardComponent implements OnInit {
           }
 
           this.spinner.hide()
-        })
+          })
       }, (err) => {
         this.challenges = []
         console.log(err)
@@ -143,6 +175,16 @@ export class ScoreBoardComponent implements OnInit {
         }
       })
     })
+  }
+
+  scrollToChallenge (challengeName: string) {
+      const el = document.getElementById(challengeName)
+      if (!el) {
+        console.log(`Challenge ${challengeName} is not visible!`)
+      } else {
+        console.log(`Scrolling to challenge: ${challengeName}`)
+        el.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   augmentHintText (challenge: Challenge) {
@@ -173,6 +215,18 @@ export class ScoreBoardComponent implements OnInit {
 
   trustDescriptionHtml (challenge: Challenge) {
     challenge.description = this.sanitizer.bypassSecurityTrustHtml(challenge.description as string)
+  }
+
+  calculateCodingProgressPercentage () {
+    let numCodingChallenges = 0
+    let codingChallengeProgress = 0
+    for (let i = 0; i < this.challenges.length; i++) {
+      if (this.challenges[i].hasSnippet) {
+        numCodingChallenges++
+        codingChallengeProgress += this.challenges[i].codingChallengeStatus
+      }
+    }
+    this.percentCodingChallengesSolved = (100 * codingChallengeProgress / (numCodingChallenges * 2)).toFixed(0)
   }
 
   calculateProgressPercentage () {
@@ -370,6 +424,7 @@ export class ScoreBoardComponent implements OnInit {
           if (challenge.codingChallengeStatus < 2) {
             challenge.codingChallengeStatus = result.fixIt ? 2 : challenge.codingChallengeStatus
           }
+          this.calculateCodingProgressPercentage()
         }
       }
     })

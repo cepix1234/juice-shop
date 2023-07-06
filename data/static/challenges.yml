@@ -12,6 +12,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Access Log'
   category: 'Sensitive Data Exposure'
@@ -56,6 +57,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Bjoern''s Favorite Pet'
   category: 'Broken Authentication'
@@ -93,15 +95,16 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'CAPTCHA Bypass'
   category: 'Broken Anti Automation'
   tags:
     - Brute Force
-  description: 'Submit 10 or more customer feedbacks within 10 seconds.'
+  description: 'Submit 10 or more customer feedbacks within 20 seconds.'
   difficulty: 3
   hint: 'After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.'
-  hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-anti-automation.html#submit-10-or-more-customer-feedbacks-within-10-seconds'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-anti-automation.html#submit-10-or-more-customer-feedbacks-within-20-seconds'
   mitigationUrl: ~
   key: captchaBypassChallenge
 -
@@ -136,6 +139,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Client-side XSS Protection'
   category: 'XSS'
@@ -150,6 +154,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Confidential Document'
   category: 'Sensitive Data Exposure'
@@ -219,6 +224,15 @@
   mitigationUrl: ~
   key: emailLeakChallenge
 -
+  name: 'Empty User Registration'
+  category: 'Improper Input Validation'
+  description: 'Register a user with an empty email and password.'
+  difficulty: 2
+  hint: 'Consider intercepting and playing with the request payload.'
+  hintUrl: https://pwning.owasp-juice.shop/part2/improper-input-validation.html#register-a-user-account-with-an-empty-email-and-password
+  mitigationUrl: ~
+  key: emptyUserRegistration
+-
   name: 'Ephemeral Accountant'
   category: 'Injection'
   description: 'Log in with the (non-existing) accountant <i>acc0unt4nt@juice-sh.op</i> without ever registering that user.'
@@ -284,7 +298,7 @@
   category: 'Broken Access Control'
   tags:
     - Tutorial
-  description: 'Post some feedback in another users name.' # FIXME Correct typo "users" into "user's" with v13.x
+  description: "Post some feedback in another user's name."
   difficulty: 3
   hint: 'You can solve this by tampering with the user interface or by intercepting the communication with the RESTful backend.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-access-control.html#post-some-feedback-in-another-users-name'
@@ -377,6 +391,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Imaginary Challenge'
   category: 'Cryptographic Issues'
@@ -499,7 +514,8 @@
   name: 'Login Support Team'
   category: 'Security Misconfiguration'
   tags:
-    - Contraption
+    - Brute Force
+    - Code Analysis
   description: 'Log in with the support team''s original user credentials without applying SQL Injection or any other bypass.'
   difficulty: 6
   hint: 'The underlying flaw of this challenge is a lot more human error than technical weakness.'
@@ -562,6 +578,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'NoSQL Exfiltration'
   category: 'Injection'
@@ -576,6 +593,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'NoSQL Manipulation'
   category: 'Injection'
@@ -681,6 +699,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Repetitive Registration'
   category: 'Improper Input Validation'
@@ -771,6 +790,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Score Board'
   category: 'Miscellaneous'
@@ -810,6 +830,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Steganography'
   category: 'Security through Obscurity'
@@ -835,6 +856,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Supply Chain Attack'
   category: 'Vulnerable Components'
@@ -905,6 +927,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'View Basket'
   category: 'Broken Access Control'
@@ -964,6 +987,7 @@
   disabledEnv:
   - Docker
   - Heroku
+  - Gitpod
 -
   name: 'XXE DoS'
   category: 'XXE'
@@ -978,6 +1002,7 @@
   disabledEnv:
   - Docker
   - Heroku
+  - Gitpod
 -
   name: 'Zero Stars'
   category: 'Improper Input Validation'
@@ -1030,11 +1055,11 @@
   mitigationUrl: ~
   key: freeDeluxeChallenge
 -
-  name: 'CSRF' # FIXME No e2e test automation! No longer works in Chrome >=80 or other latest browsers!
+  name: 'CSRF' # FIXME No e2e test automation! No longer works in Chrome >=80 and Firefox >=100 or other latest browsers!
   category: 'Broken Access Control'
   description: 'Change the name of a user by performing Cross-Site Request Forgery from <a href="http://htmledit.squarefree.com">another origin</a>.'
   difficulty: 3
-  hint: 'Find a form which updates the username and then construct a malicious page in the online HTML editor.'
+  hint: 'Find a form which updates the username and then construct a malicious page in the online HTML editor. You probably need an older browser version for this.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-access-control.html#change-the-name-of-a-user-by-performing-cross-site-request-forgery-from-another-origin'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html'
   key: csrfChallenge
@@ -1132,3 +1157,13 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
+-
+  name: 'Mass Dispel'
+  category: 'Miscellaneous'
+  description: 'Close multiple "Challenge solved"-notifications in one go.'
+  difficulty: 1
+  hint: 'Either check the official documentation or inspect a notification UI element directly.'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/score-board.html#close-multiple-challenge-solved-notifications-in-one-go'
+  mitigationUrl: ~
+  key: closeNotificationsChallenge

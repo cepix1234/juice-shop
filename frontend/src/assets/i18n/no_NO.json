@@ -315,7 +315,7 @@
   "IMAGE_UPLOAD_SUCCESS": "Bildet ble lastet opp.",
   "EMPTY_MEMORY_LIST": "Ingen minner har blitt delt ennå.",
   "LABEL_DELUXE_MEMBERSHIP": "Luksusmedlemskap",
-  "DESCRIPTION_DELUXE_MEMBERSHIP": "Nyt fantastiske fordeler som en luksus-kunde av {{appname}}. Sjekk ut hva som er inkludert i medlemskapet.",
+  "DESCRIPTION_DELUXE_MEMBERSHIP": "Enjoy amazing benefits as a deluxe customer of {{appname}}. Check out what is included with your membership.",
   "LABEL_BECOME_MEMBER": "Bli medlem",
   "LABEL_DEALS_OFFERS": "Tilbud",
   "DESCRIPTION_DEALS_OFFERS": "Som luksusmedlem får du tilgang til eksklusive og uimotståelige tilbud.",
@@ -356,13 +356,13 @@
   "SAVE_BACKUP_TOOLTIP": "Gjenopprette fremdrift og programinnstillinger fra filen.",
   "RESTORE_BACKUP_TOOLTIP": "Gjenopprette fremdrift og programinnstillinger fra filen.",
   "TAG_DANGER_ZONE": "Faresone",
-  "TAG_DANGER_ZONE_DESCRIPTION": "Merker potensielt farlige utfordringer som deaktiveres på Docker/Heroku som standard på grunn av RCE eller andre risikoer.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Marks potentially dangerous challenges which are disabled on Docker/Heroku/Gitpod by default due to RCE or other risks.",
   "TAG_GOOD_FOR_DEMOS": "Bra for demoer",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Marker utfordringer som er egnet for live demoer eller bevisstgjøringer.",
   "TAG_PREREQUISITE": "Forutsetninger",
   "TAG_PREREQUISITE_DESCRIPTION": "Markerer utfordringer som må løses før en eller flere utfordringer kan løses (realistisk).",
   "TAG_OSINT": "OSINT",
-  "TAG_OSINT_DESCRIPTION": "Marks challenges which require some Internet research or \"social stalking\" actvitiy outside the application.",
+  "TAG_OSINT_DESCRIPTION": "Marks challenges which require some Internet research or \"social stalking\" activity outside the application.",
   "TAG_CONTRAPTION": "Contraption",
   "TAG_CONTRAPTION_DESCRIPTION": "Indicates that a challenge is not exactly part of a realistic scenario but might be a bit forced or crafted.",
   "TAG_SHENANIGANS": "Shenanigans",
@@ -412,5 +412,7 @@
   "LABEL_CORRECT_FIX": "Correct Fix",
   "TITLE_CODING_CHALLENGE": "Coding Challenge",
   "TAB_FIND_IT": "Find It",
-  "TAB_FIX_IT": "Fix It"
+  "TAB_FIX_IT": "Fix It",
+  "TITLE_CODING_SCORE": "Coding Score",
+  "LABEL_FEEDBACK": "Feedback"
 }

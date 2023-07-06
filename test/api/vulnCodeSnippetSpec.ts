@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -11,14 +11,14 @@ const URL = 'http://localhost:3000'
 describe('/snippets/:challenge', () => {
   it('GET code snippet retrieval for unknown challenge key throws error', () => {
     return frisby.get(URL + '/snippets/doesNotExistChallenge')
-      .expect('status', 412)
-      .expect('json', 'error', 'Unknown challenge key: doesNotExistChallenge')
+      .expect('status', 404)
+      .expect('json', 'error', 'No code challenge for challenge key: doesNotExistChallenge')
   })
 
   it('GET code snippet retrieval for challenge without code snippet throws error', () => {
     return frisby.get(URL + '/snippets/easterEggLevelTwoChallenge')
       .expect('status', 404)
-      .expect('json', 'error', 'No code snippet available for: easterEggLevelTwoChallenge')
+      .expect('json', 'error', 'No code challenge for challenge key: easterEggLevelTwoChallenge')
   })
 
   it('GET code snippet retrieval for challenge with code snippet', () => {

@@ -315,7 +315,7 @@
   "IMAGE_UPLOAD_SUCCESS": "Your image was successfully uploaded.",
   "EMPTY_MEMORY_LIST": "No memories have been shared yet.",
   "LABEL_DELUXE_MEMBERSHIP": "Deluxe Membership",
-  "DESCRIPTION_DELUXE_MEMBERSHIP": "Enjoy amazing benefits as a a deluxe customer of {{appname}}. Check out what is included with your membership.",
+  "DESCRIPTION_DELUXE_MEMBERSHIP": "Enjoy amazing benefits as a deluxe customer of {{appname}}. Check out what is included with your membership.",
   "LABEL_BECOME_MEMBER": "Become a member",
   "LABEL_DEALS_OFFERS": "Deals and Offers",
   "DESCRIPTION_DEALS_OFFERS": "As a deluxe member, you get access to exclusive deals and irresistible offers.",
@@ -356,13 +356,13 @@
   "SAVE_BACKUP_TOOLTIP": "Save challenge progress and application settings to file.",
   "RESTORE_BACKUP_TOOLTIP": "Restore challenge progress and application settings from file.",
   "TAG_DANGER_ZONE": "Danger Zone",
-  "TAG_DANGER_ZONE_DESCRIPTION": "Marks potentially dangerous challenges which are disabled on Docker/Heroku by default due to RCE or other risks.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Marks potentially dangerous challenges which are disabled on Docker/Heroku/Gitpod by default due to RCE or other risks.",
   "TAG_GOOD_FOR_DEMOS": "Good for Demos",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Highlights challenges which are suitable for live demos or awareness trainings.",
   "TAG_PREREQUISITE": "Prerequisite",
   "TAG_PREREQUISITE_DESCRIPTION": "Marks challenges which need to be solved before one or more other challenges can be (realistically) solved.",
   "TAG_OSINT": "OSINT",
-  "TAG_OSINT_DESCRIPTION": "Marks challenges which require some Internet research or \"social stalking\" actvitiy outside the application.",
+  "TAG_OSINT_DESCRIPTION": "Marks challenges which require some Internet research or \"social stalking\" activity outside the application.",
   "TAG_CONTRAPTION": "Contraption",
   "TAG_CONTRAPTION_DESCRIPTION": "Indicates that a challenge is not exactly part of a realistic scenario but might be a bit forced or crafted.",
   "TAG_SHENANIGANS": "Shenanigans",
@@ -412,5 +412,7 @@
   "LABEL_CORRECT_FIX": "Correct Fix",
   "TITLE_CODING_CHALLENGE": "Coding Challenge",
   "TAB_FIND_IT": "Find It",
-  "TAB_FIX_IT": "Fix It"
+  "TAB_FIX_IT": "Fix It",
+  "TITLE_CODING_SCORE": "Coding Score",
+  "LABEL_FEEDBACK": "Feedback"
 }

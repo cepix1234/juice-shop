@@ -5,11 +5,12 @@ import { catchError, map } from 'rxjs/operators'
 
 export interface result {
   verdict: boolean
+  hint: string
 }
 
 @Injectable({
   providedIn: 'root'
-})
+  })
 export class VulnLinesService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/snippets/verdict'
